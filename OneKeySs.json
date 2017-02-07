@@ -5,8 +5,7 @@
 		"Password" : {
 			"Description" : "password for shadowshock connection",
 			"Type" : "String",
-			"NoEcho":"true",
-			"AllowedPattern" : "[a-zA-Z0-9]+"
+			"NoEcho":"true"
 		},
 		"ConnectionPort" : {
 			"Description" : "connection port for shadowshock",
@@ -177,7 +176,7 @@
 									{ "Fn::Sub": [ "echo '\"server_port\":${port},' |sudo tee \/etc\/shadowsocks.json -a", {"port": {"Ref":"ConnectionPort"}}]},
 									"echo '\"local_address\": \"127.0.0.1\",' |sudo tee \/etc\/shadowsocks.json -a",
 									"echo '\"local_port\":1080,' |sudo tee \/etc\/shadowsocks.json -a",
-									"echo '\"password\":\"Qwerty123\",' |sudo tee \/etc\/shadowsocks.json -a",
+									{ "Fn::Sub": [ "echo '\"password\":\"${PSW}\",' |sudo tee \/etc\/shadowsocks.json -a", {"PSW": {"Ref":"Password"}}]},
 									"echo '\"timeout\":300,' |sudo tee \/etc\/shadowsocks.json -a",
 									"echo '\"method\":\"aes-256-cfb\",' |sudo tee \/etc\/shadowsocks.json -a",
 									"echo '\"fast_open\": false' |sudo tee \/etc\/shadowsocks.json -a",
